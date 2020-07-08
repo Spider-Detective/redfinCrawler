@@ -1,4 +1,6 @@
 from selenium import webdriver
+from selenium.webdriver.chrome.options import Options
+from webdriver_manager.chrome import ChromeDriverManager
 import csv
 import json
 import os
@@ -11,13 +13,24 @@ for filename in os.listdir(base_path):
 	if re.match("redfin.*.csv", filename):
 		os.remove(os.path.join(base_path, filename))
 
-driver = webdriver.Chrome()
+chrome_options = Options()
+chrome_options.add_argument("--headless")       # define headless
+# install using driver manager to avoid cannot found error
+driver = webdriver.Chrome(ChromeDriverManager().install(), options=chrome_options)
+
+# add missing support for chrome "send_command"  to selenium webdriver
+driver.command_executor._commands["send_command"] = ("POST", '/session/$sessionId/chromium/send_command')
+params = {'cmd': 'Page.setDownloadBehavior', 'params': {'behavior': 'allow', 'downloadPath': base_path}}
+command_result = driver.execute("send_command", params)
+
 driver.get(URL)
-driver.find_element_by_id("download-and-save").click()
+# driver.find_element_by_id("download-and-save").click()
+dataLink = driver.find_element_by_id("download-and-save").get_attribute('href')
+driver.get(dataLink)
 driver.get_screenshot_as_file("./img/sreenshot1.png")
 driver.close()
 
-
+# store the data to json
 for filename in os.listdir(base_path):
 	if re.match("redfin.*.csv", filename):
 		csvfile = open(os.path.join(base_path, filename), 'r')
