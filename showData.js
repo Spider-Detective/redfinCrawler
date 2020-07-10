@@ -4,10 +4,10 @@ var LIST = ["PROPERTY TYPE", "ADDRESS", "ZIP CODE",
 				  "LOT SIZE", "YEAR BUILT", 
 				  "DAYS ON MARKET", "$/SQUARE FEET", 
 				  "HOA", "URL"];
-var data = JSON.parse(test).sort(
-      	(a, b) => 
-      	a["ZIP CODE"] - b["ZIP CODE"]
-      	);
+var NORTHWOOD = ["92620", "92618"]
+var data = JSON.parse(test)
+               .sort((a, b) => b["ZIP CODE"] - a["ZIP CODE"])
+               .filter((elem) => NORTHWOOD.includes(elem["ZIP CODE"]));
 var container = document.getElementById('propertyContainer');
 
 for (var i = 1; i < data.length; i++) {
