@@ -1,52 +1,27 @@
 <!DOCTYPE html>
 <html>
+	<!-- <head>
+		<style>
+			@media only screen and (max-width: 600px) {
+		         property-card {
+		          width: 100%;
+		         }
+		         property-card .container {
+		            background-color: red;
+		         }
+       		}
+		</style>
+	</head> -->
 	<body>
 
 	<h1>My Redfin</h1>
 	<p>Check out the current Irvine opportunities below: </p>
-	<table id="irvine" style="text-align:center;width:100%;">
-	  <thead></thead>
-	  <tbody></tbody>
-	</table>
+	<div id=propertyContainer style="display: flex; flex-wrap: wrap"></div>
+	
 
-	</body>
-	<script type="text/javascript" src="output.json"></script>
-	<script>
-	  var LIST = ["PROPERTY TYPE", "ADDRESS", "ZIP CODE", 
-				  "PRICE", "BEDS", "BATHS", 
-				  "LOCATION", "SQUARE FEET", 
-				  "LOT SIZE", "YEAR BUILT", 
-				  "DAYS ON MARKET", "$/SQUARE FEET", 
-				  "HOA", "URL"];
-	  var data = JSON.parse(test).sort(
-		      	(a, b) => 
-		      	a["ZIP CODE"] - b["ZIP CODE"]
-		      	);
+  </body>
 
-	  // display header
-	  var head = document.getElementById('irvine').getElementsByTagName('THEAD')[0];
-	  var tr = document.createElement('tr');
-	  Object.keys(data[0])
-	        .filter((key) => LIST.includes(key))
-	        .forEach((key) => {
-			    var th = document.createElement('th');
-			    th.innerHTML = key;
-			    tr.appendChild(th);
-	  		})
-	  head.appendChild(tr);
-
-	  // display body
-	  var body = document.getElementById('irvine').getElementsByTagName('TBODY')[0];
-	  for (var i = 1; i < data.length; i++) {
-	  	var tr = document.createElement('tr');
-		Object.keys(data[i])
-		      .filter((key) => LIST.includes(key))
-	          .forEach((key) => {
-			    var td = document.createElement('td');
-			    td.innerHTML = data[i][key];
-			    tr.appendChild(td);
-	  		  })
-		body.appendChild(tr);
-	  }
-	</script>
+  <script type="text/javascript" src="output.json"></script>
+  <script type="text/javascript" src="propertyCard.js"></script>
+  <script type="text/javascript" src="showData.js"></script>
 </html>

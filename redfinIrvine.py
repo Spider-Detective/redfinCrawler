@@ -6,7 +6,7 @@ import json
 import os
 import re
 
-URL = "https://www.redfin.com/city/9361/CA/Irvine/filter/max-price=750k,max-beds=3,min-baths=2"
+URL = "https://www.redfin.com/city/9361/CA/Irvine/filter/property-type=house+condo+townhouse,max-price=750k,max-beds=3,min-baths=2"
 base_path = '/Users/zixxu/Downloads/'
 
 for filename in os.listdir(base_path):
