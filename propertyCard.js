@@ -35,12 +35,20 @@ template.innerHTML = `
          margin: 0;
          margin-bottom: 5px;
        }
-       .container > .type {
+       .container > .location {
          font-size: 12px;
          opacity: 0.75;
          line-height: 1;
          margin: 0;
          margin-bottom: 15px;
+       }
+       .container > .onMarket {
+         font-size: 14px;
+         opacity: 0.85;
+         line-height: 1;
+         margin: 0;
+         margin-bottom: 15px;
+         font-style: italic;
        }
        .container > .button {
          padding: 10px 25px;
@@ -48,20 +56,18 @@ template.innerHTML = `
          border-radius: 5px;
          text-transform: uppercase;
        }
-       @media only screen and (max-width: 600px) {
+       @media (max-width: 600px) {
          :host {
           width: 100%;
-         }
-         .container {
-            background-color: red;
          }
        }
       </style>
       
       <div class="container">
         <p class="price"></p>
-        <p class="type"></p>
         <p class="location"></p>
+        <p class="type"></p>
+        <p class="onMarket"></p>
         <button><a class="url" target="_blank">See It</a></button>
       </div>
 `;
@@ -76,10 +82,12 @@ class PropertyCard extends HTMLElement {
     this.$type = this._shadowRoot.querySelector('.container>.type');
     this.$location = this._shadowRoot.querySelector('.container>.location');
     this.$url = this._shadowRoot.querySelector('.container .url');
+    this.$onMarket = this._shadowRoot.querySelector('.container>.onMarket');
   }
  
   static get observedAttributes() {
-    return ['price', 'type', 'url', 'location'];
+    // can only use lowercase letter
+    return ['price', 'type', 'url', 'location', 'onmarket'];
   }
  
   attributeChangedCallback(name, oldVal, newVal) {
@@ -92,6 +100,7 @@ class PropertyCard extends HTMLElement {
     this.$type.innerHTML = this.type;
     this.$location.innerHTML = this.location;
     this.$url.href = this.url;
+    this.$onMarket.innerHTML = this.onmarket;
   }
 }
 window.customElements.define('property-card', PropertyCard);
