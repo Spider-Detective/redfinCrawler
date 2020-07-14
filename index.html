@@ -2,24 +2,19 @@
 <html>
 <!-- Use to enable the @media query of CSS -->
 	<meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=yes">
-	<!-- <head>
+	<head>
 		<style>
-			@media only screen and (max-width: 600px) {
-		         property-card {
-		          width: 100%;
-		         }
-		         property-card .container {
-		            background-color: red;
-		         }
-       		}
+			.propertyContainer {
+				display: none; 
+				flex-wrap: wrap;
+			}
 		</style>
-	</head> -->
+	</head>
 	<body>
 
 	<h1>My Redfin</h1>
 	<p>Check out the current Irvine opportunities below: </p>
-	<div id=propertyContainer style="display: flex; flex-wrap: wrap"></div>
-	
+	<div id="container"></div>
 
   </body>
 
