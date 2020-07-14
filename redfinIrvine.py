@@ -24,9 +24,11 @@ driver.command_executor._commands["send_command"] = ("POST", '/session/$sessionI
 params = {'cmd': 'Page.setDownloadBehavior', 'params': {'behavior': 'allow', 'downloadPath': base_path}}
 command_result = driver.execute("send_command", params)
 
+print("Start to get redfin website...")
 driver.get(URL)
+print("Get screen shot...")
 driver.get_screenshot_as_file(os.path.join(work_path, "img/sreenshot1.png"))
-
+print("Download property data...")
 driver.find_element_by_id("download-and-save").click()
 # dataLink = driver.find_element_by_id("download-and-save").get_attribute('href')
 # driver.get(dataLink)
