@@ -5,9 +5,9 @@ template.innerHTML = `
          display: flex;
          align-items: center;
          width: 45%;
-         height: 180px;
+         height: auto;
          background-color: #d4d4d4;
-         border: 1px solid #d5d5d5;
+         border: 1.5px solid #d5d5d5;
          box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.1);
          border-radius: 10px;
          overflow: hidden;
@@ -16,17 +16,14 @@ template.innerHTML = `
          font-family: 'Poppins', sans-serif;
          margin: 10px;
        }
-       .image {
-         flex: 0 0 auto;
-         width: 160px;
-         height: 160px;
-         vertical-align: middle;
-         border-radius: 5px;
-       }
        .container {
+         display: flex;
          box-sizing: border-box;
-         padding: 20px;
-         height: 160px;
+         padding: 10px;
+         height: auto;
+         flex-flow: row wrap;
+         align-content: flex-start;
+         position: relative;
        }
        .container > .price {
          font-size: 20px;
@@ -34,28 +31,74 @@ template.innerHTML = `
          line-height: 1;
          margin: 0;
          margin-bottom: 5px;
+         flex: 0 0 100%;
+       }
+       .container > .img-button {
+         margin: 10px;
+       }
+       .container .image {
+         border: 1px solid #d6d6d6;
+         margin: 0;
+         border-radius: 30px;
+         width: 100%;
+         opacity: 1;
+         transition: .5s ease;
+         backface-visibility: hidden;
+       }
+       .container > .type {
+         font-size: 14px;
+         line-height: 1;
+         margin-bottom: 5px;
+         flex: 0 0 70%;
+
+       }
+       .container > .hoa {
+         font-size: 14px;
+         line-height: 1;
+         margin-bottom: 5px;
+         flex: 0 0 30%;
        }
        .container > .location {
          font-size: 12px;
          opacity: 0.75;
          line-height: 1;
          margin: 0;
-         margin-bottom: 15px;
+         margin-bottom: 10px;
+         flex: 0 0 100%;
        }
        .container > .onMarket {
          font-size: 14px;
          opacity: 0.85;
          line-height: 1;
          margin: 0;
-         margin-bottom: 15px;
          font-style: italic;
+         flex: 0 0 100%;
        }
-       .container > .button {
+       .container .middle-button {
          padding: 10px 25px;
          font-size: 12px;
          border-radius: 5px;
          text-transform: uppercase;
+         transition: .5s ease;
+         opacity: 0;
+         position: absolute;
+         top: 50%;
+         left: 50%;
+         transform: translate(-50%, -50%);
+         -ms-transform: translate(-50%, -50%)
        }
+       .container .url {
+         text-decoration: none;
+         color: black;
+       }
+       .img-button:hover .image {
+         opacity: 0.3;
+       }
+
+       .img-button:hover .middle-button {
+         opacity: 1;
+       }
+       
        @media (max-width: 600px) {
          :host {
           width: 100%;
@@ -65,10 +108,15 @@ template.innerHTML = `
       
       <div class="container">
         <p class="price"></p>
+        <div class="img-button">
+            <img class="image"/>
+            <button class="middle-button"><a class="url" target="_blank">See It</a></button>
+        </div>
         <p class="location"></p>
         <p class="type"></p>
+        <p class="hoa"></p>
         <p class="onMarket"></p>
-        <button><a class="url" target="_blank">See It</a></button>
+        
       </div>
 `;
 class PropertyCard extends HTMLElement {
@@ -80,14 +128,16 @@ class PropertyCard extends HTMLElement {
 
     this.$price = this._shadowRoot.querySelector('.container>.price');
     this.$type = this._shadowRoot.querySelector('.container>.type');
+    this.$hoa = this._shadowRoot.querySelector('.container .hoa');
     this.$location = this._shadowRoot.querySelector('.container>.location');
     this.$url = this._shadowRoot.querySelector('.container .url');
     this.$onMarket = this._shadowRoot.querySelector('.container>.onMarket');
+    this.$img = this._shadowRoot.querySelector('.container .image');
   }
  
   static get observedAttributes() {
     // can only use lowercase letter
-    return ['price', 'type', 'url', 'location', 'onmarket'];
+    return ['price', 'type', 'url', 'location', 'onmarket', 'hoa', 'img'];
   }
  
   attributeChangedCallback(name, oldVal, newVal) {
@@ -99,8 +149,10 @@ class PropertyCard extends HTMLElement {
     this.$price.innerHTML = this.price;
     this.$type.innerHTML = this.type;
     this.$location.innerHTML = this.location;
+    this.$hoa.innerHTML = this.hoa;
     this.$url.href = this.url;
     this.$onMarket.innerHTML = this.onmarket;
+    this.$img.src = this.img;
   }
 }
 window.customElements.define('property-card', PropertyCard);
