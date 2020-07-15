@@ -46,7 +46,7 @@ for filename in os.listdir(base_path):
         jsonfile.write('test = \'[')
         for row in reader:
             print(row['URL'])
-            if validators.url(row['URL']) and row['ZIP CODE'] == "92620":
+            if validators.url(row['URL']):
                 driver.get(row['URL'])
                 html = driver.page_source
                 soup = BeautifulSoup(html, 'lxml')
@@ -57,6 +57,18 @@ for filename in os.listdir(base_path):
                     row['IMG_URL'] = url
                 else:
                     print("[Warn] No image exists for this property: " + row['URL'])
+                
+                schools = soup.find_all('div', {"class": "school-title"})
+                schoolNames = []
+                for school in schools:
+                    schoolNames.append(school.string)
+                row['SCHOOLS'] = schoolNames
+
+                ratings = soup.find_all('span', {"class": "rating-num"})
+                ratingScores = []
+                for rating in ratings:
+                    ratingScores.append(rating.string)
+                row['RATINGS'] = ratingScores
             else:
                 print("[Warn] Unnecessary or Invalid url: " + row['URL'])
             json.dump(row, jsonfile)
