@@ -23,7 +23,6 @@ template.innerHTML = `
          height: auto;
          flex-flow: row wrap;
          align-content: flex-start;
-         position: relative;
        }
        .container > .price {
          font-size: 20px;
@@ -35,6 +34,7 @@ template.innerHTML = `
        }
        .container > .img-button {
          margin: 10px;
+         position: relative;
        }
        .container .image {
          border: 1px solid #d6d6d6;
@@ -73,6 +73,11 @@ template.innerHTML = `
          margin: 0;
          font-style: italic;
          flex: 0 0 100%;
+       }
+       .container > .schools {
+         font-size: 14px;
+         list-style: circle;
+         padding-left: 15px;
        }
        .container .middle-button {
          padding: 10px 25px;
@@ -116,7 +121,7 @@ template.innerHTML = `
         <p class="type"></p>
         <p class="hoa"></p>
         <p class="onMarket"></p>
-        
+        <ul class="schools"></ul>
       </div>
 `;
 class PropertyCard extends HTMLElement {
@@ -133,11 +138,14 @@ class PropertyCard extends HTMLElement {
     this.$url = this._shadowRoot.querySelector('.container .url');
     this.$onMarket = this._shadowRoot.querySelector('.container>.onMarket');
     this.$img = this._shadowRoot.querySelector('.container .image');
+    this.$schools = this._shadowRoot.querySelector('.container>.schools');
   }
  
   static get observedAttributes() {
     // can only use lowercase letter
-    return ['price', 'type', 'url', 'location', 'onmarket', 'hoa', 'img'];
+    return ['price', 'type', 'url', 'location', 
+            'onmarket', 'hoa', 'img',
+            'schools'];
   }
  
   attributeChangedCallback(name, oldVal, newVal) {
@@ -153,6 +161,7 @@ class PropertyCard extends HTMLElement {
     this.$url.href = this.url;
     this.$onMarket.innerHTML = this.onmarket;
     this.$img.src = this.img;
+    this.$schools.innerHTML = this.schools;
   }
 }
 window.customElements.define('property-card', PropertyCard);
