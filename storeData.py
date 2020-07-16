@@ -8,6 +8,12 @@ from webdriver_manager.chrome import ChromeDriverManager
 from bs4 import BeautifulSoup
 import requests
 import validators
+import smtplib
+import ssl
+from email import encoders
+from email.mime.multipart import MIMEBase
+from email.mime.multipart import MIMEMultipart
+from email.mime.text import MIMEText
 
 base_path = '/Users/zixxu/Downloads/'
 work_path = '/Users/zixxu/Documents/Learning/crawler/'
@@ -45,7 +51,7 @@ for filename in os.listdir(base_path):
         reader = csv.DictReader(csvfile, fieldnames)
         jsonfile.write('test = \'[')
         for row in reader:
-            print(row['URL'])
+            print("[Info] Working on getting: " + row['URL'])
             if validators.url(row['URL']):
                 driver.get(row['URL'])
                 html = driver.page_source
@@ -80,3 +86,39 @@ for filename in os.listdir(base_path):
 
 print("[Info] Writing data success!")
 driver.close()
+
+####################################
+# send notification email
+sender_email = 'eldritchTest1@gmail.com'
+password = 'P@ss1234'
+
+context = ssl.create_default_context()
+
+# 端口465好像是在gmail官方说明里查的，具体忘了
+with smtplib.SMTP_SSL("smtp.gmail.com", 465, context=context) as server:
+    server.login(sender_email, password)
+
+    def send_mail(subject, mail_text, mail_address):
+
+        message = MIMEMultipart("alternative")
+        message["Subject"] = subject
+        message["From"] = sender_email
+        message["To"] = mail_address
+        text = mail_text
+        part1 = MIMEText(text, "plain")
+        message.attach(part1)
+
+        text = message.as_string()
+
+        server.sendmail(
+            sender_email, mail_address, message.as_string())
+
+    mail_text = 'Hi Zixi and Miao, \nThis is your Robot. \
+                 I have pulled the data from Redfin for you. \
+                 Please have a look.\n Have a great day!'
+    receiver = 'Zixi'
+    mail_address = 'xduniverse@hotmail.com'
+        
+    subject = f"{receiver}, the Redfin data is updated"
+    send_mail(subject, mail_text, mail_address)
+    print("[Info] Email to " + receiver + " is sent!")

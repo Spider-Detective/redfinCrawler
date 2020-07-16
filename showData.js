@@ -8,12 +8,12 @@ var convertType = {"Single Family Residential": "Single Family",
                    "Condo/Co-op": "Condo", 
                    "Townhouse": "Townhouse"};
 var NORTHWOOD = ["92620", "92618"];
-var INVESTMENT = ["WP - Westpark", "OC - Oak Creek"];
+var INVESTMENT = ["WP - Westpark", "OC - Oak Creek", "NW - Northwood"];
 var DEFAULT_IMG = "https://www.muslimrosewelfare.org.uk/wp-content/uploads/2019/11/no-image-available-icon-6.png";
 var container = document.getElementById('container');
 var data = JSON.parse(test)
                .sort((a, b) => b["ZIP CODE"] - a["ZIP CODE"])
-               .filter((elem) => /WP|OC/.test(elem["LOCATION"]));
+               .filter((elem) => INVESTMENT.includes(elem["LOCATION"]));
 
 // setup HTML structure
 for (let zip of INVESTMENT) {
@@ -40,7 +40,7 @@ for (let zip of INVESTMENT) {
 	container.appendChild(item);
 }
 
-for (var i = 1; i < data.length; i++) {
+for (var i = 0; i < data.length; i++) {
 	var a = document.createElement("property-card");
 	// if (data[i]["ZIP CODE"] !== "92620") {
 	// 	a.style.backgroundColor = '#708090';
