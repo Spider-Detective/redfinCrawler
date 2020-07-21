@@ -8,12 +8,32 @@
 				display: none; 
 				flex-wrap: wrap;
 			}
+			#options {
+				display: flex;
+				flex-wrap: wrap;
+				margin-bottom: 10px;
+			}
+			#options > div {
+	         line-height: 1;
+	         margin: 0;
+	         flex: 0 0 33%;
+	        }
+	        @media (max-width: 600px) {
+		      #options > div {
+	            line-height: 1;
+	            margin: 0;
+	            flex: 0 0 100%;
+	          }
+		    }
 		</style>
 	</head>
 	<body>
 
 	<h1>My Redfin</h1>
-	<p>Check out the current Irvine opportunities below: </p>
+	<p>Select which Irvine regions you want to see: </p>
+	<div id="options"></div>
+	<button id="showData">Check the houses!</button>
+	
 	<div id="container"></div>
 
   </body>
