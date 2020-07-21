@@ -17,7 +17,11 @@ for filename in os.listdir(base_path):
 chrome_options = Options()
 chrome_options.add_argument("--headless")       # define headless
 # install using driver manager to avoid cannot found error
-driver = webdriver.Chrome(ChromeDriverManager().install(), options=chrome_options)
+try:
+	driver = webdriver.Chrome(ChromeDriverManager().install(), options=chrome_options)
+except:
+	print("[Error]: ")
+	driver = webdriver.Chrome(ChromeDriverManager().install(), options=chrome_options)
 
 # add missing support for chrome "send_command"  to selenium webdriver
 driver.command_executor._commands["send_command"] = ("POST", '/session/$sessionId/chromium/send_command')
