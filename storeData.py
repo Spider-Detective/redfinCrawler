@@ -88,6 +88,9 @@ print("[Info] Writing data success!")
 driver.close()
 
 ####################################
+# send http request for the json data
+
+####################################
 # send notification email
 sender_email = 'eldritchTest1@gmail.com'
 password = 'P@ss1234'

@@ -20,7 +20,7 @@ chrome_options.add_argument("--headless")       # define headless
 try:
 	driver = webdriver.Chrome(ChromeDriverManager().install(), options=chrome_options)
 except:
-	print("[Error]: ")
+	print("[Error]: open chrome driver failed!")
 	driver = webdriver.Chrome(ChromeDriverManager().install(), options=chrome_options)
 
 # add missing support for chrome "send_command"  to selenium webdriver
