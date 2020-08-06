@@ -4,7 +4,9 @@ This is a Python crawler to check the newly available houses on Redfin website.
 ## Get Started
 1. Update the target URL in ```redfinIrvine.py``` as you like. 
 Redfin has a special ```region id``` for each city
-URL = "https://www.redfin.com/city/9361/CA/Irvine/filter/property-type=house+condo+townhouse,max-price=750k,max-beds=3,min-baths=2"
+```URL = "https://www.redfin.com/city/9361/CA/Irvine/filter/property-type=house+condo+townhouse,max-price=750k,max-beds=3,min-baths=2"```
+Or you can go with zipcode:
+``` https://www.redfin.com/zipcode/94086```
 2. Update ```base_path``` and ```work_path``` in ```redfinIrvine.py``` on your machine.
 3. Use ```crontab``` (on Mac or Linux) to schedule the Python scripts. e.g.:
    ```
