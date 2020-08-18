@@ -22,4 +22,5 @@ Or you can go with zipcode:
    And go to ```http://localhost:[port]``` to see the crawler results. You can edit the Nginx config file at ```/usr/local/etc/nginx/```.
 ## Possible Improvements
 1. Server side: Use an actual server instead of local computer.
+   We can use AWS to hold the Python scripts and Webpages, also move ```crontab``` scheduler there.
 2. Client side: Use React.js instead of web component.
